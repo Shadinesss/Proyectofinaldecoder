@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1120392fa939374e8f58b1a92f7fab9, type: 3}
+  m_Name: Kern-38
+  m_EditorClassIdentifier: 
+  weaponName: Kern-38
+  weaponDescription: The Kern-38 assault rifle is a powerful semi-automatic rifle
+    with two firing modes. One mode is electronically powered through the connection
+    with the protective suit of White-X's elite soldiers. The other mode is available
+    in case of a suit battery failure, allowing for a lower recoil automatic fire
+    propelled by gunpowder. The user can switch between both types of fire at will.
+  weaponType: 2
+  primaryBodyDamage: 24
+  primaryHeadshotDamage: 56
+  primaryPiercingType: 3
+  primaryFiresPerSecond: 18
+  primaryMaxRange: 75
+  primaryFireSound: {fileID: 0}
+  secondaryBodyDamage: 12
+  secondaryHeadshotDamage: 18
+  secondaryPiercingType: 2
+  secondaryFiresPerSecond: 26
+  secondaryMaxRange: 48
+  secondaryFireSound: {fileID: 0}
