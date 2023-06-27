@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2f361f8e09fb1458bc1637e5f0959e, type: 3}
   m_Name: Razor99
   m_EditorClassIdentifier: 
-  weaponName: 
-  weaponDescription: 
+  weaponName: Razor99
+  weaponDescription: a
   weaponType: 0
-  primaryGeneralDamage: 0
-  primaryWeakPointDamage: 0
-  primaryPiercingType: 0
-  primaryFiresPerSecond: 0
-  primaryMaxRange: 0
+  primaryGeneralDamage: 75
+  primaryWeakPointDamage: 190
+  primaryPiercingType: 4
+  primaryFiresPerSecond: 4.5
+  primaryMaxRange: 2
   primaryFireSound: {fileID: 0}
   secondaryGeneralDamage: 0
   secondaryWeakPointDamage: 0

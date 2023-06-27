@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement conditions")]
     [SerializeField] private float m_raycastMaxDistanceToValidateFloor;
     [SerializeField] private LayerMask m_floor;
+    [SerializeField] private LayerMask m_prop;
     [Header("Crouch Parameters")]
     [SerializeField] private float m_playerCrouchScale;
     [SerializeField] private float m_downForce;
@@ -27,8 +28,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Extra parameters from Habilities")]
     [SerializeField] private float m_gravityCounterForce;
     [SerializeField] private float m_sprintCooldownTime;
+    [SerializeField] private AudioSource m_footstep;
+    //[SerializeField] private AudioSource m_footstep2;
+    [SerializeField] private AudioSource m_jump;
 
-    private StoryGameManager m_gameManager;
+    private bool m_canPlaySound1 = true;
+    private bool m_canPlaySound2 = true;
+    private PlayerManager m_playerManager;
     private bool m_playerIsCrouching;
     private bool m_playerCanSprint;
     private float m_xInput;
@@ -38,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        m_gameManager = StoryGameManager.Instance;
+        m_playerManager = PlayerManager.Instance;
         m_playerCanSprint = true;
         m_playerIsCrouching = false;
         m_normalScale = transform.localScale;
@@ -54,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(IsGrounded())
         {
+            if (m_xInput != 0 || m_yInput != 0)
+                FootstepSound();
             Run();
             if(Input.GetKey(KeyCode.LeftShift))
             {
@@ -63,19 +71,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 Crawl();
             }
-            if (Input.GetKeyUp(KeyCode.CapsLock) || m_gameManager.GetPlayerStamina() < 1)
+            if (Input.GetKeyUp(KeyCode.CapsLock) || m_playerManager.GetPlayerStamina() < 1)
             {
-                m_gameManager.StaminaRegeneration();
+                m_playerManager.StaminaRegeneration();
                 StartCoroutine(SprintCooldown());
             }
-            else if (Input.GetKey(KeyCode.CapsLock) && m_playerCanSprint && m_gameManager.IsPlayerShielded()) 
+            else if (Input.GetKey(KeyCode.CapsLock) && m_playerCanSprint && m_playerManager.IsPlayerShielded()) 
             {
-                m_gameManager.StaminaConsumption();
+                m_playerManager.StaminaConsumption();
                 Sprint();
             }
             else
             {
-                m_gameManager.StaminaRegeneration();
+                m_playerManager.StaminaRegeneration();
             }
             if(Input.GetKey(KeyCode.Space))
             {
@@ -89,10 +97,6 @@ public class PlayerMovement : MonoBehaviour
                 Plane();
                 GravityCounter();
             }
-        }
-        if(m_gameManager.GetPlayerFlatVelocity() > 0) //&& //Bool m_canSound)
-        {
-            //Ejecutar una corrutina con un audio
         }
     }
 
@@ -123,11 +127,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Run()
-    {
-        if (m_gameManager.IsPlayerShielded())
-            m_playerRigidBody.AddForce(m_direction.normalized * m_runForce, ForceMode.Impulse);
-        else
-            m_playerRigidBody.AddForce(m_direction.normalized * m_runForce * 0.75f, ForceMode.Impulse);
+    {    
+        m_playerRigidBody.AddForce(m_direction.normalized * m_runForce, ForceMode.Impulse);
     }
 
     private void Walk()
@@ -142,11 +143,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        JumpSound();
         m_playerRigidBody.drag = m_dragFlying;
-        if (m_gameManager.IsPlayerShielded())
-            m_playerRigidBody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
-        else
-            m_playerRigidBody.AddForce(Vector3.up * m_jumpForce * 0.75f, ForceMode.Impulse);
+        m_playerRigidBody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
     }
 
     private void Crouch()
@@ -170,7 +169,10 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(m_playerTransform.position, Vector3.down, m_raycastMaxDistanceToValidateFloor, m_floor);
+        if (Physics.Raycast(m_playerTransform.position, Vector3.down, m_raycastMaxDistanceToValidateFloor, m_floor) || Physics.Raycast(m_playerTransform.position, Vector3.down, m_raycastMaxDistanceToValidateFloor, m_prop))
+            return true;
+        else
+            return false;
     }
 
     private void DragModifier()
@@ -202,5 +204,30 @@ public class PlayerMovement : MonoBehaviour
         else
             return false;
     }
-
+    private void FootstepSound()
+    {
+        if (!m_canPlaySound1)
+            return;
+        m_footstep.Play();
+        StartCoroutine(FootstepSoundCooldown(0.4f));
+    }
+    private void JumpSound()
+    {
+        if (!m_canPlaySound2)
+            return;
+        m_jump.Play();
+        StartCoroutine(JumpSoundCooldown(0.7f));
+    }
+    private IEnumerator FootstepSoundCooldown(float time)
+    {
+        m_canPlaySound1 = false;
+        yield return new WaitForSeconds(time);
+        m_canPlaySound1 = true;
+    }
+    private IEnumerator JumpSoundCooldown(float time)
+    {
+        m_canPlaySound2 = false;
+        yield return new WaitForSeconds(time);
+        m_canPlaySound2 = true;
+    }
 }

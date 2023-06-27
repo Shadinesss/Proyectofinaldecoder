@@ -9,24 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1120392fa939374e8f58b1a92f7fab9, type: 3}
+  m_Script: {fileID: 11500000, guid: cf2f361f8e09fb1458bc1637e5f0959e, type: 3}
   m_Name: P-889
   m_EditorClassIdentifier: 
   weaponName: P-889
-  weaponDescription: The P-889 pistol is the emergency handgun for high-risk situations
-    used by White-X soldiers. It fires kinetically charged bullets through an electronic
-    winding system. It has a Semi-Automatic mode for single shots and another mode
-    to enable full Automatic fire. Its firing mechanism allows the soldier to barely
-    perceive any recoil.
+  weaponDescription: b
   weaponType: 1
-  primaryBodyDamage: 4.5
-  primaryHeadshotDamage: 11
+  primaryGeneralDamage: 27
+  primaryWeakPointDamage: 51
   primaryPiercingType: 1
-  primaryFiresPerSecond: 4
-  primaryMaxRange: 30
+  primaryFiresPerSecond: 3
+  primaryMaxRange: 15
   primaryFireSound: {fileID: 0}
-  secondaryBodyDamage: 0
-  secondaryHeadshotDamage: 0
+  secondaryGeneralDamage: 0
+  secondaryWeakPointDamage: 0
   secondaryPiercingType: 0
   secondaryFiresPerSecond: 0
   secondaryMaxRange: 0
