@@ -8,7 +8,7 @@ using UnityEngine.TextCore.Text;
 
 public class WeaponData : ScriptableObject
 {
-    private StoryGameManager m_gameManager;
+    private PlayerManager m_playerManager;
 
     [Header("ID")]
     [SerializeField] private string weaponName;
@@ -17,18 +17,17 @@ public class WeaponData : ScriptableObject
     [Header("Primary Shoot")]
     [SerializeField] private float primaryGeneralDamage;
     [SerializeField] private float primaryWeakPointDamage;
-    [SerializeField] private StoryGameManager.PiercingType primaryPiercingType;
+    [SerializeField] private PlayerManager.PiercingType primaryPiercingType;
     [SerializeField] private float primaryFiresPerSecond;
     [SerializeField] private float primaryMaxRange;
     [SerializeField] private AudioSource primaryFireSound;
     [Header("Alternative Shoot")]
     [SerializeField] private float secondaryGeneralDamage;
     [SerializeField] private float secondaryWeakPointDamage;
-    [SerializeField] private StoryGameManager.PiercingType secondaryPiercingType;
+    [SerializeField] private PlayerManager.PiercingType secondaryPiercingType;
     [SerializeField] private float secondaryFiresPerSecond;
     [SerializeField] private float secondaryMaxRange;
     [SerializeField] private AudioSource secondaryFireSound;
-
     public enum WeaponTypeEnum
     {
         Melee,
@@ -60,7 +59,7 @@ public class WeaponData : ScriptableObject
     {
         return primaryWeakPointDamage;
     }
-    public StoryGameManager.PiercingType GetPrimaryPiercingType()
+    public PlayerManager.PiercingType GetPrimaryPiercingType()
     {
         return primaryPiercingType;
     }
@@ -81,7 +80,7 @@ public class WeaponData : ScriptableObject
     {
         return secondaryWeakPointDamage;
     }
-    public StoryGameManager.PiercingType GetSecondaryPiercingType()
+    public PlayerManager.PiercingType GetSecondaryPiercingType()
     {
         return secondaryPiercingType;
     }
@@ -93,5 +92,4 @@ public class WeaponData : ScriptableObject
     {
         return secondaryMaxRange;
     }
-
 }

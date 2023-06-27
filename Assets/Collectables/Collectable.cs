@@ -17,20 +17,16 @@ public class Collectable : ScriptableObject
     [SerializeField] private AudioSource collectablePickUpSound;
     public enum CollectableType
     {
-        Weapon,
         Shield,
         Medicine,
-        Battery,
-        FuturisticPistolAmmo,
-        FuturisticRiffleAmmo1,
-        FuturisticRiffleAmmo2,
+        P889Ammo,
+        Kern38Ammo,
         Trap
     }
     public string GetCollectableName()
     {
         return collectableName;
     }
-
     public string GetCollectableDescription()
     {
         return collectableDescription;
@@ -39,11 +35,8 @@ public class Collectable : ScriptableObject
     {
         return Type.ToString();
     }
-
     public float CollectablePointsGiven()
     {
         return collectablePointsGiven;
     }
-
-
 }
